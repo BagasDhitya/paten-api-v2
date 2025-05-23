@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from "typeorm";
 import { Procurement } from "./Procurement";
 
 export enum UserRole {
@@ -21,9 +21,6 @@ export class User {
     email!: string;
 
     @Column()
-    age!: number
-
-    @Column()
     password!: string;
 
     @Column({
@@ -33,8 +30,8 @@ export class User {
     })
     role!: UserRole;
 
-    @Column()
-    created_at!: Date
+    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+    created_at!: Date;
 
     @OneToMany(() => Procurement, (procurement) => procurement.ppk)
     procurement!: Procurement[]
