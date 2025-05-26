@@ -2,6 +2,7 @@ import express from 'express'
 import { initializeDB } from './config/database'
 import { AuthRoutes } from './routers/auth.route'
 import dotenv from 'dotenv'
+import cors from 'cors'
 
 dotenv.config()
 class App {
@@ -16,6 +17,9 @@ class App {
 
     private config() {
         this.app.use(express.json())
+        this.app.use(cors({
+            origin: 'http://localhost:3000'
+        }))
     }
 
     private routes() {
@@ -29,7 +33,7 @@ class App {
     }
 }
 
-const port = 5000
+const port = 8000
 const app = new App().app
 
 app.listen(port, () => {
