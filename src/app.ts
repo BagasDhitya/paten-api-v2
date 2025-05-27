@@ -12,8 +12,8 @@ class App {
     constructor() {
         this.app = express()
         this.config()
-        this.routes()
         this.initializeDatabase()
+        this.routes()
     }
 
     private config() {
