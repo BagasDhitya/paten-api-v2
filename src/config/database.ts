@@ -17,12 +17,8 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: process.env.NODE_ENV === "production"
-        ? ["dist/entities/*.js"]
-        : [User, Procurement, Contract, Vendor],
-    migrations: process.env.NODE_ENV === "production"
-        ? ["dist/migrations/*.js"]
-        : ["src/migrations/*.ts"],
+    entities: [__dirname + '/entities/**/*.{js,ts}'], // INI WAJIB DIUPDATE
+    migrations: [__dirname + '/migrations/**/*.{js,ts}'],
     subscribers: []
 });
 

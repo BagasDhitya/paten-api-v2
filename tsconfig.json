@@ -11,4 +11,11 @@
     "moduleResolution": "node",
     "outDir": "dist",
   },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
