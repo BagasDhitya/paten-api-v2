@@ -1,10 +1,6 @@
 import { DataSource } from "typeorm";
 import dotenv from 'dotenv'
 
-import { User } from "../entities/User";
-import { Procurement } from "../entities/Procurement";
-import { Contract } from "../entities/Contract";
-import { Vendor } from "../entities/Vendor";
 
 dotenv.config()
 
@@ -17,7 +13,9 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: false,
     logging: false,
-    entities: [User, Procurement, Contract, Vendor],
+    entities: process.env.NODE_ENV === "production"
+        ? ["dist/entities/**/*.js"]
+        : ["src/entities/**/*.ts"],
     migrations: ["src/migrations/*.ts"],
     subscribers: []
 })
