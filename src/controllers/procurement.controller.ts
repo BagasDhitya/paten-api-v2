@@ -8,6 +8,7 @@ export class ProcurementController {
     async create(req: Request, res: Response) {
         try {
             const { title, description, budget, deadline, ppkId } = req.body
+            console.log("ppkId : ", ppkId)
             const procurement = await this.procurementService.createProcurement(title, description, budget, new Date(deadline), ppkId)
             res.status(201).send({
                 data: procurement,

@@ -11,6 +11,7 @@ export class ProcurementService {
 
         const ppk = await this.userRepository.findOneBy({ id: ppkId })
 
+        console.log('ppk ; ', ppk)
         if (!ppk) {
             throw new Error("PPK Not found")
         }
