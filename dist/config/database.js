@@ -21,11 +21,11 @@ exports.AppDataSource = new typeorm_1.DataSource({
     synchronize: true,
     logging: false,
     entities: process.env.NODE_ENV === "production"
-        ? ["dist/entities/**/*.js"]
+        ? ["dist/entities/*.js"]
         : [User_1.User, Procurement_1.Procurement, Contract_1.Contract, Vendor_1.Vendor],
     migrations: process.env.NODE_ENV === "production"
-        ? ["dist/migrations/**/*.js"]
-        : ["src/migrations/**/*.ts"],
+        ? ["dist/migrations/*.js"]
+        : ["src/migrations/*.ts"],
     subscribers: []
 });
 const initializeDB = async () => {

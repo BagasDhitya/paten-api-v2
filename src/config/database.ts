@@ -18,11 +18,11 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: process.env.NODE_ENV === "production"
-        ? ["dist/entities/**/*.js"]
+        ? ["dist/entities/*.js"]
         : [User, Procurement, Contract, Vendor],
     migrations: process.env.NODE_ENV === "production"
-        ? ["dist/migrations/**/*.js"]
-        : ["src/migrations/**/*.ts"],
+        ? ["dist/migrations/*.js"]
+        : ["src/migrations/*.ts"],
     subscribers: []
 });
 
