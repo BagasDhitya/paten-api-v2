@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initializeDB = exports.AppDataSource = void 0;
 const typeorm_1 = require("typeorm");
-const path = require('path');
-
 const dotenv_1 = __importDefault(require("dotenv"));
+const User_1 = require("../entities/User");
+const Procurement_1 = require("../entities/Procurement");
+const Contract_1 = require("../entities/Contract");
+const Vendor_1 = require("../entities/Vendor");
 dotenv_1.default.config();
 const isProduction = process.env.NODE_ENV === 'production';
 exports.AppDataSource = new typeorm_1.DataSource({
@@ -19,22 +21,12 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [
-        isProduction
-            ? [path.join(__dirname, './entities/*.js')]
-            : __dirname + "/../entities/**/*.ts", // untuk development
-    ],
-    migrations: [
-        isProduction
-            ? __dirname + "/../migrations/**/*.js"
-            : __dirname + "/../migrations/**/*.ts",
-    ],
+    entities: [User_1.User, Procurement_1.Procurement, Contract_1.Contract, Vendor_1.Vendor],
+    migrations: [],
     subscribers: [],
 });
 const initializeDB = async () => {
     try {
-        console.log("NODE_ENV =", process.env.NODE_ENV);
-        console.log("Entities loaded:", exports.AppDataSource.options.entities);
         await exports.AppDataSource.initialize();
         console.log('Database connected successfully');
     }
