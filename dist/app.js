@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const database_1 = require("./config/database");
 const auth_route_1 = require("./routers/auth.route");
+const procurement_route_1 = require("./routers/procurement.route");
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
@@ -24,7 +25,9 @@ class App {
     }
     routes() {
         const authRoutes = new auth_route_1.AuthRoutes();
+        const procurementRoutes = new procurement_route_1.ProcurementRoutes();
         this.app.use("/api/auth", authRoutes.router);
+        this.app.use("/api/procurements", procurementRoutes.router);
     }
     async initializeDatabase() {
         await (0, database_1.initializeDB)();
