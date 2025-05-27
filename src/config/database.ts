@@ -17,10 +17,15 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [User, Procurement, Contract, Vendor],
-    migrations: ["src/migrations/*.ts"],
+    entities: process.env.NODE_ENV === "production"
+        ? ["dist/entities/**/*.js"]
+        : [User, Procurement, Contract, Vendor],
+    migrations: process.env.NODE_ENV === "production"
+        ? ["dist/migrations/**/*.js"]
+        : ["src/migrations/**/*.ts"],
     subscribers: []
-})
+});
+
 
 export const initializeDB = async () => {
     try {
