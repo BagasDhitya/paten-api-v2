@@ -8,6 +8,8 @@ import { Vendor } from "../entities/Vendor";
 
 dotenv.config()
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: process.env.DB_HOST,
@@ -17,10 +19,19 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [__dirname + '/entities/**/*.{js,ts}'], // INI WAJIB DIUPDATE
-    migrations: [__dirname + '/migrations/**/*.{js,ts}'],
-    subscribers: []
+    entities: [
+        isProduction
+            ? __dirname + "/../entities/**/*.js" // untuk setelah di-build
+            : __dirname + "/../entities/**/*.ts", // untuk development
+    ],
+    migrations: [
+        isProduction
+            ? __dirname + "/../migrations/**/*.js"
+            : __dirname + "/../migrations/**/*.ts",
+    ],
+    subscribers: [],
 });
+
 
 
 export const initializeDB = async () => {

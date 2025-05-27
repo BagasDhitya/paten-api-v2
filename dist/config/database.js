@@ -7,6 +7,7 @@ exports.initializeDB = exports.AppDataSource = void 0;
 const typeorm_1 = require("typeorm");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+const isProduction = process.env.NODE_ENV === 'production';
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
     host: process.env.DB_HOST,
@@ -16,9 +17,17 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [__dirname + '/entities/**/*.{js,ts}'], // INI WAJIB DIUPDATE
-    migrations: [__dirname + '/migrations/**/*.{js,ts}'],
-    subscribers: []
+    entities: [
+        isProduction
+            ? __dirname + "/../entities/**/*.js" // untuk setelah di-build
+            : __dirname + "/../entities/**/*.ts", // untuk development
+    ],
+    migrations: [
+        isProduction
+            ? __dirname + "/../migrations/**/*.js"
+            : __dirname + "/../migrations/**/*.ts",
+    ],
+    subscribers: [],
 });
 const initializeDB = async () => {
     try {
