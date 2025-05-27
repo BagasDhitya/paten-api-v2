@@ -29,6 +29,9 @@ export const AppDataSource = new DataSource({
 
 export const initializeDB = async () => {
     try {
+        console.log("NODE_ENV =", process.env.NODE_ENV)
+        console.log("Entities loaded:", AppDataSource.options.entities)
+
         await AppDataSource.initialize()
         console.log('Database connected successfully')
     } catch (error) {
