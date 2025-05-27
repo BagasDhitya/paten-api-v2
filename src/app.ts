@@ -1,6 +1,7 @@
 import express from 'express'
 import { initializeDB } from './config/database'
 import { AuthRoutes } from './routers/auth.route'
+import { ProcurementRoutes } from './routers/procurement.route'
 import dotenv from 'dotenv'
 import cors from 'cors'
 
@@ -24,8 +25,10 @@ class App {
 
     private routes() {
         const authRoutes = new AuthRoutes()
+        const procurementRoutes = new ProcurementRoutes()
 
         this.app.use("/api/auth", authRoutes.router)
+        this.app.use("/api/procurements", procurementRoutes.router)
     }
 
     private async initializeDatabase() {
