@@ -6,10 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.initializeDB = exports.AppDataSource = void 0;
 const typeorm_1 = require("typeorm");
 const dotenv_1 = __importDefault(require("dotenv"));
-const User_1 = require("../entities/User");
-const Procurement_1 = require("../entities/Procurement");
-const Contract_1 = require("../entities/Contract");
-const Vendor_1 = require("../entities/Vendor");
 dotenv_1.default.config();
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
@@ -20,16 +16,14 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: process.env.NODE_ENV === "production"
-        ? ["dist/entities/*.js"]
-        : [User_1.User, Procurement_1.Procurement, Contract_1.Contract, Vendor_1.Vendor],
-    migrations: process.env.NODE_ENV === "production"
-        ? ["dist/migrations/*.js"]
-        : ["src/migrations/*.ts"],
+    entities: [__dirname + '/entities/**/*.{js,ts}'], // INI WAJIB DIUPDATE
+    migrations: [__dirname + '/migrations/**/*.{js,ts}'],
     subscribers: []
 });
 const initializeDB = async () => {
     try {
+        console.log("NODE_ENV =", process.env.NODE_ENV);
+        console.log("Entities loaded:", exports.AppDataSource.options.entities);
         await exports.AppDataSource.initialize();
         console.log('Database connected successfully');
     }
