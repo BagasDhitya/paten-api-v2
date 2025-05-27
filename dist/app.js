@@ -14,8 +14,8 @@ class App {
     constructor() {
         this.app = (0, express_1.default)();
         this.config();
-        this.routes();
         this.initializeDatabase();
+        this.routes();
     }
     config() {
         this.app.use(express_1.default.json());
