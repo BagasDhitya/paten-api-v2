@@ -21,7 +21,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     logging: false,
     entities: [
         isProduction
-            ? [path.join(__dirname, '/entities/*.js')]
+            ? [path.join(__dirname, './entities/*.js')]
             : __dirname + "/../entities/**/*.ts", // untuk development
     ],
     migrations: [
