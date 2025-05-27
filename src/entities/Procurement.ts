@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from "typeorm";
 import { User } from "./User";
+import { Contract } from "./Contract";
 
 export enum ProcurementStatus {
     DRAFT = 'draft',
@@ -35,4 +36,7 @@ export class Procurement {
 
     @ManyToOne(() => User, (user) => user.procurement)
     ppk!: User
+
+    @OneToOne(() => Contract, (contract) => contract.procurement)
+    contract?: Contract
 }

@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 
 import { User } from "../entities/User";
 import { Procurement } from "../entities/Procurement";
+import { Contract } from "../entities/Contract";
+import { Vendor } from "../entities/Vendor";
 
 dotenv.config()
 
@@ -15,7 +17,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: false,
     logging: false,
-    entities: [User, Procurement],
+    entities: [User, Procurement, Contract, Vendor],
     migrations: ["src/migrations/*.ts"],
     subscribers: []
 })

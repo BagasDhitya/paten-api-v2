@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, CreateDateColumn } from "typeorm";
 import { Procurement } from "./Procurement";
+import { Contract } from "./Contract";
+import { Vendor } from "./Vendor";
 
 export enum UserRole {
     ADMIN = "admin",
@@ -35,4 +37,10 @@ export class User {
 
     @OneToMany(() => Procurement, (procurement) => procurement.ppk)
     procurement!: Procurement[]
+
+    @OneToMany(() => Contract, (contract) => contract.ppk)
+    contracts?: Contract[]
+
+    @OneToOne(() => Vendor, (vendor) => vendor)
+    vendor?: Vendor
 }

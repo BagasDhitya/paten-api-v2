@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = exports.UserRole = void 0;
 const typeorm_1 = require("typeorm");
 const Procurement_1 = require("./Procurement");
+const Contract_1 = require("./Contract");
+const Vendor_1 = require("./Vendor");
 var UserRole;
 (function (UserRole) {
     UserRole["ADMIN"] = "admin";
@@ -55,6 +57,14 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => Procurement_1.Procurement, (procurement) => procurement.ppk),
     __metadata("design:type", Array)
 ], User.prototype, "procurement", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Contract_1.Contract, (contract) => contract.ppk),
+    __metadata("design:type", Array)
+], User.prototype, "contracts", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => Vendor_1.Vendor, (vendor) => vendor),
+    __metadata("design:type", Vendor_1.Vendor)
+], User.prototype, "vendor", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

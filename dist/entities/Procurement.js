@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Procurement = exports.ProcurementStatus = void 0;
 const typeorm_1 = require("typeorm");
 const User_1 = require("./User");
+const Contract_1 = require("./Contract");
 var ProcurementStatus;
 (function (ProcurementStatus) {
     ProcurementStatus["DRAFT"] = "draft";
@@ -55,6 +56,10 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.procurement),
     __metadata("design:type", User_1.User)
 ], Procurement.prototype, "ppk", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => Contract_1.Contract, (contract) => contract.procurement),
+    __metadata("design:type", Contract_1.Contract)
+], Procurement.prototype, "contract", void 0);
 exports.Procurement = Procurement = __decorate([
     (0, typeorm_1.Entity)()
 ], Procurement);
